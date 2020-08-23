@@ -4,8 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEditor;
+using System.Linq;
 
 //Make sure the game's quality settings only have 3 options, as we won't be changing them here.
+//Note 1: This code does not save the resolution set by the player because every time the game opens, it saves the 
+
 public class MainMenu : MonoBehaviour
 {
     [Header("UI Elements")]
@@ -16,12 +19,14 @@ public class MainMenu : MonoBehaviour
     const int SceneIndex_Running = 1;
     const string Key_Fullscreen = "Fullscreen";
     const string Key_Quality = "Quality";
-    const string Key_Resolution = "Resolution";
+    const string Key_Width = "Width";
+    const string Key_Height = "Height";
 
     //Cache Options menu values as fields so we can save them in player prefs later.
-    Resolution[] allResolutions;
+    //Resolution[] allResolutions;
+    List<Resolution> supportedResolutions;
     bool isFullscreen;
-    int resolutionIndex;
+    int resolutionIndex= -1;
     int qualityIndex;
 
     #region MonoBehavior
@@ -30,11 +35,11 @@ public class MainMenu : MonoBehaviour
         Load_OptionsSettings();
     }
 
-    void OnGUI ()
-    {
-        GUI.Label(new Rect(20, 20, 2000, 20), "Quality: " + QualitySettings.GetQualityLevel());
-        GUI.Label(new Rect(20, 40, 2000, 20), "isFullscreen: " + isFullscreen);
-    }
+    //void OnGUI ()
+    //{
+    //    GUI.Label(new Rect(20, 20, 2000, 20), "Quality: " + QualitySettings.GetQualityLevel());
+    //    GUI.Label(new Rect(20, 40, 2000, 20), "isFullscreen: " + isFullscreen);
+    //}
     #endregion
 
     #region Public - Main menu
@@ -56,13 +61,12 @@ public class MainMenu : MonoBehaviour
 
     public void SetResolution(int index)
     {
+        //Note: we cannot put Dropdown_Resolutions.value in here, as when the dropdown (ui element)'s value is changed, it
+        //will trigger it's onValueChange event, thus creating a circular loop. Therefore we can only directly set the
+        //dropdown values outside.
         resolutionIndex = index;
-        if (allResolutions.Length == 0)
-        {
-            PopulateResolutionDropdownBox();
-        }
-
-        Screen.SetResolution(allResolutions[index].width, allResolutions[index].height, Screen.fullScreen);
+        
+        Screen.SetResolution(supportedResolutions[index].width, supportedResolutions[index].height, Screen.fullScreen);
     }
 
     public void SetQuality(int index)
@@ -83,7 +87,7 @@ public class MainMenu : MonoBehaviour
     {
         //Load isFullscreen & set value in UI
         isFullscreen = PlayerPrefs.GetInt(Key_Fullscreen, Screen.fullScreen ? 1 : 0) == 1 ? true : false;
-        Debug.Log("isFullscreen " + isFullscreen);
+        //Debug.Log("isFullscreen " + isFullscreen);
         Toggle_Fullscreen.isOn = isFullscreen;
         SetFullScreen(isFullscreen);
 
@@ -93,50 +97,107 @@ public class MainMenu : MonoBehaviour
         SetQuality(qualityIndex);
 
         //Load resolution & set value in UI (Do not set resolution)
-        resolutionIndex = PlayerPrefs.GetInt(Key_Resolution, 0);
         PopulateResolutionDropdownBox();
+        LoadResolution();
     }
 
     public void Save_OptionsSettings()
     {
         //Save isFullscreen
         PlayerPrefs.SetInt(Key_Fullscreen, isFullscreen == true ? 1 : 0);
-        Debug.Log("isFullscreen " + isFullscreen);
-        Debug.Log("PlayerPrefs.GetInt(Key_Fullscreen, Screen.fullScreen " + PlayerPrefs.GetInt(Key_Fullscreen, -1));
+        //Debug.Log("Save isFullscreen " + isFullscreen);
+        //Debug.Log("PlayerPrefs.GetInt(Key_Fullscreen, Screen.fullScreen " + PlayerPrefs.GetInt(Key_Fullscreen, -1));
 
         //Save quality
         PlayerPrefs.SetInt(Key_Quality, qualityIndex);
 
         //Save resolution
-        PlayerPrefs.SetInt(Key_Resolution, resolutionIndex);
+        PlayerPrefs.SetInt(Key_Width, supportedResolutions[resolutionIndex].width);
+        PlayerPrefs.SetInt(Key_Height, supportedResolutions[resolutionIndex].height);
     }
     #endregion
 
-    #region Private
+    #region Private - Loading resolution
     void PopulateResolutionDropdownBox()
     {
         Dropdown_Resolutions.ClearOptions();
 
-        //Go through all resolutions, save them as strings, then populate the dropdown box's options with it.
-        allResolutions = Screen.resolutions;
+        //Goal: Go through all resolutions, save them as strings, then populate the dropdown box's options with it.
+        //Note: We use the following line instead of "allResolutions = Screen.resolutions;" to prevent returning duplicates 
+        //of the same resolution in the build version.
+        supportedResolutions = Screen.resolutions.Where(resolution => resolution.refreshRate == 60).ToList(); 
         List<string> options = new List<string>();
 
-        for (int i = 0; i < allResolutions.Length; i++)
+        for (int i = 0; i < supportedResolutions.Count; i++)
         {
-            options.Add(allResolutions[i].width + "x" + allResolutions[i].height);
-
-            //Cache the correct dropbox option index
-            if (Screen.currentResolution.width == allResolutions[i].width &&
-                Screen.currentResolution.height == allResolutions[i].height)
-            {
-                resolutionIndex = i;
-            }
+            options.Add(supportedResolutions[i].width + "x" + supportedResolutions[i].height);
         }
 
         Dropdown_Resolutions.AddOptions(options);
-        Dropdown_Resolutions.value = resolutionIndex;
         Dropdown_Resolutions.RefreshShownValue();
     }
+
+    //This method will try to load screen resolution by 
+    //1. Load from player prefs
+    //2. If player prefs doesn't contain a saved resolution data..
+    //... then pick a supportedResolution that matches the screen.
+    //3. If no supportedResolution matches the screen...
+    //... then pick the largest supportedResolution (i.e. the last index).
+    void LoadResolution ()
+    {
+        if (supportedResolutions == null || supportedResolutions.Count == 0)
+        {
+            PopulateResolutionDropdownBox();
+        }
+
+        //1. Try load screen resolution from PlayerPrefs 
+        int saved_w = PlayerPrefs.GetInt(Key_Width, 0);
+        int saved_h = PlayerPrefs.GetInt(Key_Height, 0);
+
+        if (saved_w != 0 && saved_h != 0)
+        {
+            Debug.Log("Has saved resolution data in PlayerPrefs.");
+            for (int i = 0; i < supportedResolutions.Count; i++)
+            {
+                if (saved_w == supportedResolutions[i].width &&
+                    saved_h == supportedResolutions[i].height)
+                {
+                    Dropdown_Resolutions.value = i;
+                    SetResolution(i);
+
+                    Debug.Log("Matching resolution data found in playerPrefs. Exiting LoadResolution().");
+                    return; 
+                }
+            }
+            Debug.Log("Saved resolution data was found but is not in the list of supportedResolutions.");
+        }
+        else
+        {
+            Debug.Log("No saved resolution setting.");
+        }        
+
+        //2. See if there is a supported resolution that matches the screen.
+        for (int i = 0; i < supportedResolutions.Count; i++)
+        {
+            if (Screen.currentResolution.width == supportedResolutions[i].width &&
+                Screen.currentResolution.height == supportedResolutions[i].height)
+            {
+                Dropdown_Resolutions.value = i;
+                SetResolution(i);
+
+                Debug.Log("SupportedResolutions contains an option that matches the Screen.width and Screen.height. Exiting LoadResolution().");
+                return;
+            }            
+        }
+        Debug.Log("SupportedResolutions DOES NOT contain an option that matches the screen.");
+
+        //3. Pick the largest supportedResolution
+        Debug.Log("Picking the last option in supportedResolutions.");
+        
+        Dropdown_Resolutions.value = supportedResolutions.Count - 1;
+        SetResolution(supportedResolutions.Count - 1);
+    }
+
     #endregion
 }
 
