@@ -29,7 +29,7 @@ public class PauseMenu : MonoBehaviour
     #region Public
     public void PlayGame ()
     {
-        SceneManager.LoadScene(SceneIndex_Running);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(SceneIndex_Running);
     }
     #endregion
 
