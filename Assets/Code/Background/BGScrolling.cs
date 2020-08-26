@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using UnityEngine;
 
 public class BGScrolling : MonoBehaviour
@@ -10,12 +11,15 @@ public class BGScrolling : MonoBehaviour
     public float fastSpeed = 5f;
     public float slowSpeed = 2f;
 
-    float acceleration = 5f;
+    float acceleration = 99f;
     float moveSpeed;
     float targetSpeed;
 
     private void Start()
     {
+        SceneManager.OnCharacterEnter += StartsRunning;
+        SceneManager.OnCharacterDead += PlayerDead;
+
         SetTargetSpeed(slowSpeed);
     }
 
@@ -36,8 +40,26 @@ public class BGScrolling : MonoBehaviour
         }
     }
 
-    void SetTargetSpeed (float s)
+    #region Setting speed
+    void SetTargetSpeed(float s)
     {
         targetSpeed = s;
+    }
+
+    void StartsRunning()
+    {
+        SetTargetSpeed(fastSpeed);
+    }
+
+    void PlayerDead ()
+    {
+        SetTargetSpeed(slowSpeed);
+    }
+    #endregion
+
+    void OnDisable()
+    {
+        SceneManager.OnCharacterEnter -= StartsRunning;
+        SceneManager.OnCharacterDead -= PlayerDead;
     }
 }

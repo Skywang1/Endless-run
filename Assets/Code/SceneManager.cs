@@ -20,8 +20,7 @@ public class SceneManager : MonoBehaviour
 
     void Start()
     {
-        if (OnCharacterDead != null)
-            OnCharacterDead();
+
     }
 
     void Update()
@@ -32,12 +31,14 @@ public class SceneManager : MonoBehaviour
     #region Events
 
     #endregion
-    public void CharacterEnter ()
+    public void Clicked_GameStart ()
     {
+
         if (OnCharacterEnter != null)
         {
             OnCharacterEnter();
         }
+
         StartCoroutine(DelayToStartRunning());
     }
 
@@ -50,12 +51,13 @@ public class SceneManager : MonoBehaviour
         }
     }
 
-    public void CharacterDead ()
+    public void CharacterDead()
     {
         if (OnCharacterDead != null)
         {
             OnCharacterDead();
         }
+
     }
 
     public void AnimEvent_CharacterEntered ()

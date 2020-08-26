@@ -513,9 +513,9 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 349429083}
   m_CullTransparentMesh: 0
---- !u!4 &363738151 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3077157723832533117, guid: 1b8f2534998c28c4091fa590b547b317,
+--- !u!1 &363738148 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3077157723832533091, guid: 1b8f2534998c28c4091fa590b547b317,
     type: 3}
   m_PrefabInstance: {fileID: 1760896314}
   m_PrefabAsset: {fileID: 0}
@@ -1107,8 +1107,30 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1398304263}
-        m_MethodName: PlayGame
+      - m_Target: {fileID: 363738148}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 2077627378}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1398304264}
+        m_MethodName: Clicked_GameStart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1325,7 +1347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65015d31e916743488f1a844f5e33cbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fastSpeed: 2
+  fastSpeed: 5
   slowSpeed: 0.5
 --- !u!1 &615284322
 GameObject:
@@ -1871,57 +1893,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 990971816}
   m_CullTransparentMesh: 0
---- !u!1 &1013762148
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1013762149}
-  - component: {fileID: 1013762150}
-  m_Layer: 0
-  m_Name: Robot_Root
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1013762149
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1013762148}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.97, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 363738151}
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &1013762150
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1013762148}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 52c608cc35ef6ea4bafb3b339e86e25a, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1033452325
 GameObject:
   m_ObjectHideFlags: 0
@@ -2543,6 +2514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3148412d479aec44eb5fe593b5c8a82f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterEnterDuration: 1
 --- !u!1 &1407937779
 GameObject:
   m_ObjectHideFlags: 0
@@ -3211,7 +3183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65015d31e916743488f1a844f5e33cbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fastSpeed: 2
+  fastSpeed: 5
   slowSpeed: 0.5
 --- !u!212 &1579591529
 SpriteRenderer:
@@ -3634,17 +3606,22 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1013762149}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3077157723832533091, guid: 1b8f2534998c28c4091fa590b547b317,
         type: 3}
       propertyPath: m_Name
       value: Robot_quickTest
       objectReference: {fileID: 0}
+    - target: {fileID: 3077157723832533091, guid: 1b8f2534998c28c4091fa590b547b317,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3077157723832533117, guid: 1b8f2534998c28c4091fa590b547b317,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -6.79
       objectReference: {fileID: 0}
     - target: {fileID: 3077157723832533117, guid: 1b8f2534998c28c4091fa590b547b317,
         type: 3}
@@ -3679,7 +3656,7 @@ PrefabInstance:
     - target: {fileID: 3077157723832533117, guid: 1b8f2534998c28c4091fa590b547b317,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3077157723832533117, guid: 1b8f2534998c28c4091fa590b547b317,
         type: 3}

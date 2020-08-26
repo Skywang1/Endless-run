@@ -34,7 +34,6 @@ public class MainMenu : MonoBehaviour
     #region MonoBehavior
     void Start()
     {
-        sceneManager = SceneManager.instance;
         Load_OptionsSettings();
     }
 
@@ -48,7 +47,7 @@ public class MainMenu : MonoBehaviour
     #region Public - Main menu
     public void PlayGame()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(SceneIndex_Running);
+        //UnityEngine.SceneManagement.SceneManager.LoadScene(SceneIndex_Running);
     }
 
     public void Quit ()
