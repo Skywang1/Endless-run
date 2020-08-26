@@ -3,24 +3,25 @@ using System.Collections;
 
 public class SceneManager : MonoBehaviour
 {
-    public static SceneManager instance;
+    //EVENTS
+    public delegate void CharacterEnterEvent();
+    public static event CharacterEnterEvent OnCharacterEnter;
 
+    public delegate void StartRunningEvent();
+    public static event StartRunningEvent OnStartRunning;
 
-    public delegate void GameStartIntro();
-    public static event GameStartIntro OnGameStartIntro;
+    public delegate void PlayerDeadEvent();
+    public static event PlayerDeadEvent OnCharacterDead;
 
-    public delegate void PlayerDead();
-    public static event PlayerDead OnPlayerDead;
+    //VARIABLES
+    [SerializeField]
+    float characterEnterDuration = 1f;
 
-    private void Awake()
-    {
-        instance = this;
-    }
 
     void Start()
     {
-        if (OnPlayerDead != null)
-            OnPlayerDead();
+        if (OnCharacterDead != null)
+            OnCharacterDead();
     }
 
     void Update()
@@ -28,19 +29,37 @@ public class SceneManager : MonoBehaviour
 
     }
 
+    #region Events
+
+    #endregion
+    public void CharacterEnter ()
+    {
+        if (OnCharacterEnter != null)
+        {
+            OnCharacterEnter();
+        }
+        StartCoroutine(DelayToStartRunning());
+    }
+
+    IEnumerator DelayToStartRunning ()
+    {
+        yield return new WaitForSeconds(characterEnterDuration);
+        if (OnStartRunning != null)
+        {
+            OnStartRunning();
+        }
+    }
+
+    public void CharacterDead ()
+    {
+        if (OnCharacterDead != null)
+        {
+            OnCharacterDead();
+        }
+    }
+
     public void AnimEvent_CharacterEntered ()
     {
 
     }
 }
-
-/*
-  public delegate void ClickAction();
-    public static event ClickAction OnClicked;
-
-    void Start()
-    {
-        if (OnClicked != null)
-            OnClicked();
-    }
- */

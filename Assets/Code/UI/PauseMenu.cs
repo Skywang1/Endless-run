@@ -6,42 +6,45 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    public Dropdown Qualities;
-    public Dropdown Resolutions;
-    public Toggle FullScreen;
+    public CanvasGroup canvas_Pause;
 
+    bool isPaused = false;
 
-    const int SceneIndex_Running = 1;
-
-
-    #region MonoBehavior
     void Start()
     {
-
+        SetPause(false);
     }
-
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            TogglePause();
+        }
     }
-    #endregion
 
-    #region Public
-    public void PlayGame ()
+    public void TogglePause()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(SceneIndex_Running);
-    }
-    #endregion
+        isPaused = !isPaused;
 
-    #region Load/Save
-    void Load ()
-    { 
-
+        SetPause(isPaused);
     }
 
-    void Save ()
+    void SetPause(bool pause)
     {
-
+        isPaused = pause;
+        if (isPaused)
+        {
+            Time.timeScale = 0f;
+            canvas_Pause.alpha = 1f;
+            canvas_Pause.interactable = true;
+            canvas_Pause.blocksRaycasts = true;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            canvas_Pause.alpha = 0f;
+            canvas_Pause.interactable = false;
+            canvas_Pause.blocksRaycasts = false;
+        }
     }
-    #endregion
 }
