@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class BGScrolling : MonoBehaviour
 {
-    const float WarpEdge_leftX = -18.3f;
-    const float Spawn_rightX = 18.3f;
+    const float WarpEdge_leftX = -18.219f;
+    const float Spawn_rightX = 36.438f;
 
     public float fastSpeed = 5f;
     public float slowSpeed = 2f;
