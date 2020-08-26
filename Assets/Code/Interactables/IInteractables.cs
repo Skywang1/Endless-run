@@ -1,8 +1,22 @@
 ﻿using UnityEngine;
 
-public interface IInteractables
+public abstract class Interactables: MonoBehaviour
 {
-    //void Spawn(Vector3 position);
+    //CONST
+    const float leftEdge = -20f;
 
-    void PlayerCollided();
+    Vector3 moveDir = new Vector3(-5f, 0f, 0f);
+
+    public virtual void PlayerCollided() { }
+
+    protected void MoveUpdate ()
+    {
+        //Move
+        transform.Translate(moveDir * Time.deltaTime);
+
+        if (transform.position.x < leftEdge)
+        {
+            Destroy(gameObject);
+        }
+    }
 }
