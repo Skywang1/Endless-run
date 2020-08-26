@@ -17,8 +17,7 @@ public class BGScrolling : MonoBehaviour
 
     private void Start()
     {
-        SceneManager.OnCharacterEnter += StartsRunning;
-        SceneManager.OnCharacterDead += PlayerDead;
+        EventSubscribing();
 
         SetTargetSpeed(slowSpeed);
     }
@@ -40,26 +39,34 @@ public class BGScrolling : MonoBehaviour
         }
     }
 
-    #region Setting speed
-    void SetTargetSpeed(float s)
+    #region Event subscribing
+    void EventSubscribing ()
     {
-        targetSpeed = s;
+        SceneManager.OnCharacterEnter += FasterScroll;
+        SceneManager.OnCharacterDead += SlowScroll;
     }
 
-    void StartsRunning()
+    void OnDisable()
+    {
+        SceneManager.OnCharacterEnter -= FasterScroll;
+        SceneManager.OnCharacterDead -= SlowScroll;
+    }
+    #endregion
+
+    #region Setting scrolling speed
+    void FasterScroll()
     {
         SetTargetSpeed(fastSpeed);
     }
 
-    void PlayerDead ()
+    void SlowScroll()
     {
         SetTargetSpeed(slowSpeed);
     }
-    #endregion
 
-    void OnDisable()
+    void SetTargetSpeed(float s)
     {
-        SceneManager.OnCharacterEnter -= StartsRunning;
-        SceneManager.OnCharacterDead -= PlayerDead;
+        targetSpeed = s;
     }
+    #endregion
 }
