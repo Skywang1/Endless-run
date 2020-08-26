@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class PropSpawner : MonoBehaviour
 {
-    public GameObject Pf_Box;
+    public GameObject[] Pf_Boxes;
     public GameObject Pf_Coin;
 
     public List<Transform> spawnPoints_coins;
     public List<Transform> spawnPoints_boxes;
 
-    const float coinSpawnDelay = 0.5f;
+    const float coinSpawnDelay = 0.29f;
 
     bool spawning = false;
         
@@ -44,6 +44,7 @@ public class PropSpawner : MonoBehaviour
     {
         spawning = true;
         StartCoroutine(DoCoinSpawns());
+        StartCoroutine(DoBoxSpawns());
     }
 
     void StopSpawn ()
@@ -52,26 +53,29 @@ public class PropSpawner : MonoBehaviour
     }
     #endregion
 
-    #region Spawning sequences
+    #region Coin spawning sequences
     IEnumerator DoCoinSpawns ()
     {
         while(spawning)
         {
-            yield return new WaitForSeconds(Random.Range(2f, 5f));
             switch (Random.Range(0, 4))
             {
                 case 0: //Spawn random coin
                     SpawnSingleCoin(GetRandomSpawnPoint_Coins().position);
+                    yield return new WaitForSeconds(Random.Range(2f, 3f));
                     break;
                 case 1:
                     StartCoroutine(SpawnTripleCoins());
+                    yield return new WaitForSeconds(Random.Range(3f, 4f));
                     break;
                 case 2:
                     StartCoroutine(SpawnTwoRowCoins());
+                    yield return new WaitForSeconds(Random.Range(3f, 4f));
                     break;
                 case 3:
                     StartCoroutine(SpawnZigZagCoins());
-                    break;                
+                    yield return new WaitForSeconds(Random.Range(6f, 8f));
+                    break;
             }
         }
     }
@@ -106,11 +110,11 @@ public class PropSpawner : MonoBehaviour
     {
         int strokes = 0;
 
-        int low = Random.Range(2, spawnPoints_coins.Count - 1);
-        int high = low - 2;
-        int index = low;
+        int high = Random.Range(2, spawnPoints_coins.Count - 1);
+        int low = high - 2;
+        int index = high;
 
-        bool rise = true;
+        bool rise = false;
 
         while (strokes < 5)
         {
@@ -124,6 +128,7 @@ public class PropSpawner : MonoBehaviour
                 {
                     rise = false;
                     strokes++;
+                    index--;
                 }
                 //otherwise pick the next index above.
                 else
@@ -139,6 +144,7 @@ public class PropSpawner : MonoBehaviour
                 {
                     rise = true;
                     strokes++;
+                    index++;
                 }
                 //otherwise pick the next index below.
                 else
@@ -150,8 +156,27 @@ public class PropSpawner : MonoBehaviour
             yield return new WaitForSeconds(coinSpawnDelay);
         }
     }
+    #endregion
 
+    #region Box spawning sequences
+    IEnumerator DoBoxSpawns ()
+    {
+        while (spawning)
+        {
+            switch (Random.Range(0, 2))
+            {
+                case 0:
+                    SpawnBoxSmall(GetRandomSpawnPoint_Boxes().position);
+                    yield return new WaitForSeconds(Random.Range(2f, 5f));
+                    break;
 
+                case 1:
+                    SpawnBoxBig(GetRandomSpawnPoint_Boxes().position);
+                    yield return new WaitForSeconds(Random.Range(3f, 6f));
+                    break;
+            }            
+        }
+    }
     #endregion
 
     #region Instantiation
@@ -165,9 +190,14 @@ public class PropSpawner : MonoBehaviour
         Instantiate(Pf_Coin, spawnPoints_coins[index].position, Quaternion.identity);
     }
 
-    void SpawnBox(Vector3 pos)
+    void SpawnBoxSmall(Vector3 pos)
     {
-        Instantiate(Pf_Coin, pos, Quaternion.identity);
+        Instantiate(Pf_Boxes[0], pos, Quaternion.identity);
+    }
+
+    void SpawnBoxBig(Vector3 pos)
+    {
+        Instantiate(Pf_Boxes[1], pos, Quaternion.identity);
     }
     #endregion
 

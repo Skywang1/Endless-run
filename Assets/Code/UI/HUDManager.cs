@@ -4,8 +4,7 @@ using System.Collections;
 
 public class HUDManager : MonoBehaviour
 {
-    
-    public Text distance;
+    public GameObject HUD_Group;
     public Text coins;
     public Text timer;
 
@@ -14,7 +13,7 @@ public class HUDManager : MonoBehaviour
 
     void Start()
     {
-        
+        SubscribeEvents();
     }
 
     void Update()
@@ -30,16 +29,6 @@ public class HUDManager : MonoBehaviour
     {
         coins.text = amount.ToString();
     }
-
-    public void SetDistance(int amount)
-    {
-        distance.text = amount.ToString();
-    }
-    #endregion
-
-    #region Private
-
-
     #endregion
 
     #region Event subscribing
@@ -64,14 +53,12 @@ public class HUDManager : MonoBehaviour
         startedTimer = true;
 
         //Reveal HUD
-        distance.enabled = true;
-        coins.enabled = true;
+        HUD_Group.SetActive(true);
     }
 
     void CloseHUD()
     {
-        distance.enabled = false;
-        coins.enabled = false;
+        HUD_Group.SetActive(false);
     }
     #endregion
 
@@ -86,8 +73,20 @@ public class HUDManager : MonoBehaviour
         timeElapsed += Time.deltaTime;
         string minutes = Mathf.Floor(timeElapsed / 60f).ToString("00");
         string seconds = Mathf.Floor(timeElapsed % 60).ToString("00");
+        string miliseconds = Mathf.Floor((timeElapsed * 100) % 100).ToString("00");
 
-        timer.text = minutes + ":" + seconds;
+        timer.text = minutes + ":" + seconds + ":" + miliseconds;
     }
     #endregion
 }
+
+/*
+ void UpdateTimer()
+    {
+        timeElapsed += Time.deltaTime;
+        string minutes = Mathf.Floor(timeElapsed / 60f).ToString("00");
+        string seconds = Mathf.Floor(timeElapsed % 60).ToString("00");
+
+        timer.text = minutes + ":" + seconds;
+    }
+ */
