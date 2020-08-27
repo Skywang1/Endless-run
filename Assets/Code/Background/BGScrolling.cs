@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class BGScrolling : MonoBehaviour
 {
-    const float WarpEdge_leftX = -18.219f;
-    const float Spawn_rightX = 36.438f;
+    public float WarpEdge_leftX = -18.219f;
+    public float RespawnOffsetX = 36.438f;
 
     public float fastSpeed = 5f;
     public float slowSpeed = 2f;
@@ -34,7 +34,7 @@ public class BGScrolling : MonoBehaviour
         if (transform.position.x < WarpEdge_leftX)
         {
             Vector3 p = transform.position;
-            p.x = Spawn_rightX;
+            p.x = p.x + RespawnOffsetX;
             transform.position = p;
         }
     }
