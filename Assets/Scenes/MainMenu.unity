@@ -2361,7 +2361,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 977699375}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 13.2, y: -3.28, z: 0}
+  m_LocalPosition: {x: 13.2, y: -2.79, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 90155724}
@@ -2889,7 +2889,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Pf_Boxes:
   - {fileID: 2863748734509733312, guid: f8b0d7b91312d7841ab3e9ebdf655b98, type: 3}
-  - {fileID: 5657526292435320002, guid: 7c79d3e7d1c349e428a4e7262572a8a8, type: 3}
   Pf_Coin: {fileID: 8979888239849816508, guid: 54a0a173d522e314b82858897bc71f80, type: 3}
   spawnPoints_coins:
   - {fileID: 910825270}

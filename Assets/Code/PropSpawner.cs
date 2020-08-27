@@ -62,7 +62,7 @@ public class PropSpawner : MonoBehaviour
             {
                 case 0: //Spawn random coin
                     SpawnSingleCoin(GetRandomSpawnPoint_Coins().position);
-                    yield return new WaitForSeconds(Random.Range(2f, 3f));
+                    yield return new WaitForSeconds(Random.Range(0.5f, 1f));
                     break;
                 case 1:
                     StartCoroutine(SpawnTripleCoins());
@@ -74,7 +74,7 @@ public class PropSpawner : MonoBehaviour
                     break;
                 case 3:
                     StartCoroutine(SpawnZigZagCoins());
-                    yield return new WaitForSeconds(Random.Range(6f, 8f));
+                    yield return new WaitForSeconds(Random.Range(4f, 6f));
                     break;
             }
         }
@@ -163,18 +163,21 @@ public class PropSpawner : MonoBehaviour
     {
         while (spawning)
         {
-            switch (Random.Range(0, 2))
-            {
-                case 0:
-                    SpawnBoxSmall(GetRandomSpawnPoint_Boxes().position);
-                    yield return new WaitForSeconds(Random.Range(2f, 5f));
-                    break;
+            SpawnBoxSmall(GetRandomSpawnPoint_Boxes().position);
+            yield return new WaitForSeconds(Random.Range(1f, 5f));
 
-                case 1:
-                    SpawnBoxBig(GetRandomSpawnPoint_Boxes().position);
-                    yield return new WaitForSeconds(Random.Range(3f, 6f));
-                    break;
-            }            
+            //switch (Random.Range(0, 2))
+            //{
+            //    case 0:
+            //        SpawnBoxSmall(GetRandomSpawnPoint_Boxes().position);
+            //        yield return new WaitForSeconds(Random.Range(2f, 5f));
+            //        break;
+
+            //    case 1:
+            //        SpawnBoxBig(GetRandomSpawnPoint_Boxes().position);
+            //        yield return new WaitForSeconds(Random.Range(3f, 6f));
+            //        break;
+            //}            
         }
     }
     #endregion
@@ -195,10 +198,10 @@ public class PropSpawner : MonoBehaviour
         Instantiate(Pf_Boxes[0], pos, Quaternion.identity);
     }
 
-    void SpawnBoxBig(Vector3 pos)
-    {
-        Instantiate(Pf_Boxes[1], pos, Quaternion.identity);
-    }
+    //void SpawnBoxBig(Vector3 pos)
+    //{
+    //    Instantiate(Pf_Boxes[1], pos, Quaternion.identity);
+    //}
     #endregion
 
     #region Get spawn point
