@@ -4,11 +4,26 @@ using UnityEngine;
 
 public class _tests : MyBase
 {
-
-
-    void Update()
+    private void Start()
     {
-        
+        SceneEvents.GameStart.Event += MyFunction;
+        //SceneEventsC.GameStart.Invoke();
+    }
+
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            SceneEvents.GameStart.CallEvent();
+        }
+    }
+
+
+
+    void MyFunction()
+    {
+        Debug.Log("hi");
     }
 }
 

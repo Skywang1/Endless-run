@@ -70,14 +70,14 @@ public class HUDManager : MonoBehaviour
     #region Event subscribing
     void SubscribeEvents()
     {
-        SceneEvents.OnGameStart += HUDInitialization;
-        SceneEvents.OnPlayerDead += CloseHUD;
+        SceneEvents.GameStart.Event += HUDInitialization;
+        SceneEvents.PlayerDead.Event += CloseHUD;
     }
 
     void OnDisable()
     {
-        SceneEvents.OnGameStart -= HUDInitialization;
-        SceneEvents.OnPlayerDead -= CloseHUD;
+        SceneEvents.GameStart.Event -= HUDInitialization;
+        SceneEvents.PlayerDead.Event -= CloseHUD;
     }
     #endregion
 }

@@ -26,14 +26,14 @@ public class PropSpawner : MonoBehaviour
     #region Event subscribing
     void EventScribing()
     {
-        SceneEvents.OnRunningStart += StartSpawn;
-        SceneEvents.OnPlayerDead += StopSpawn;
+        SceneEvents.RunningStart.Event += StartSpawn;
+        SceneEvents.PlayerDead.Event += StopSpawn;
     }
 
     void OnDisable()
     {
-        SceneEvents.OnRunningStart -= StartSpawn;
-        SceneEvents.OnPlayerDead -= StopSpawn;
+        SceneEvents.RunningStart.Event -= StartSpawn;
+        SceneEvents.PlayerDead.Event -= StopSpawn;
     }
     #endregion
 

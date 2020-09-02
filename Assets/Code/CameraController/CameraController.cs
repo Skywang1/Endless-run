@@ -35,15 +35,14 @@ public class CameraController : MonoBehaviour
     #region Scene events subscription
     void EventSubscription ()
     {
-        SceneEvents.OnPlayerDead += ZoomIn;
-        SceneEvents.OnGameStart += ZoomOut;
+        SceneEvents.PlayerDead.Event += ZoomIn;
+        SceneEvents.GameStart.Event += ZoomOut;
     }
 
     void OnDisable()
     {
-        SceneEvents.OnPlayerDead -= ZoomIn;
-        SceneEvents.OnGameStart -= ZoomOut;
+        SceneEvents.PlayerDead.Event -= ZoomIn;
+        SceneEvents.GameStart.Event -= ZoomOut;
     }
     #endregion
-
 }

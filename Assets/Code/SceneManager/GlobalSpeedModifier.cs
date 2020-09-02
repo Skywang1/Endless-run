@@ -15,14 +15,14 @@ public class GlobalSpeedModifier : MonoBehaviour
     //Variables
     float accelerationInterval = 1f;
     float accelerationAmount = 0.01f;
-    bool gameStarted = false;
+    bool SpeedIncreasing = false;
     float currentSpeed = STARTING_SPEED;
     
     #region MonoBehaviour
     private void Update()
     {
         //Let the game gradually slowdown after game is over
-        if (!gameStarted)
+        if (!SpeedIncreasing)
         {
             currentSpeed = Mathf.Lerp(currentSpeed, STARTING_SPEED, Time.deltaTime);
         }
@@ -30,39 +30,39 @@ public class GlobalSpeedModifier : MonoBehaviour
     #endregion
 
     #region Speed change
-    void StartGame()
+    void StartIncrease()
     {
-        gameStarted = true;
-        StartCoroutine(SpeedUp());
+        SpeedIncreasing = true;
+        StartCoroutine(DoIncrease());
     }
 
-    IEnumerator SpeedUp ()
+    IEnumerator DoIncrease ()
     {
-        while (gameStarted)
+        while (SpeedIncreasing)
         {
             currentSpeed += accelerationAmount;
-            SceneEvents.Call_SpeedIncrease(currentSpeed);
+            SceneEvents.SpeedIncrease.CallEvent();
             yield return new WaitForSeconds(accelerationInterval);
         }
     }
 
-    void EndRunning()
+    void EndIncrease()
     {
-        gameStarted = false;
+        SpeedIncreasing = false;
     }
     #endregion
 
     #region Event subscribing
     void EventSubscribing()
     {
-        SceneEvents.OnGameStart += StartGame;
-        SceneEvents.OnPlayerDead += EndRunning;
+        SceneEvents.GameStart.Event += StartIncrease;
+        SceneEvents.GameOverBackToMain.Event += EndIncrease;
     }
 
     void OnDisable()
     {
-        SceneEvents.OnGameStart -= StartGame;
-        SceneEvents.OnPlayerDead -= EndRunning;
+        SceneEvents.GameStart.Event += StartIncrease;
+        SceneEvents.GameOverBackToMain.Event -= EndIncrease;
     }
     #endregion
 }

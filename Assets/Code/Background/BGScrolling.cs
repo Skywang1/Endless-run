@@ -28,7 +28,7 @@ public class BGScrolling : MonoBehaviour
         moveSpeed = Mathf.Lerp(moveSpeed, targetSpeed, acceleration * Time.deltaTime);
 
         //Move
-        transform.Translate(new Vector3(-moveSpeed *Time.deltaTime, 0f, 0f));
+        transform.Translate(new Vector3(-moveSpeed * GlobalSpeedModifier.Speed *Time.deltaTime, 0f, 0f));
 
         //Warp: left to right
         if (transform.position.x < WarpEdge_leftX)
@@ -42,14 +42,14 @@ public class BGScrolling : MonoBehaviour
     #region Event subscribing
     void EventSubscribing ()
     {
-        SceneEvents.OnGameStart += FasterScroll;
-        SceneEvents.OnPlayerDead += SlowScroll;
+        SceneEvents.GameStart.Event += FasterScroll;
+        SceneEvents.PlayerDead.Event += SlowScroll;
     }
 
     void OnDisable()
     {
-        SceneEvents.OnGameStart -= FasterScroll;
-        SceneEvents.OnPlayerDead -= SlowScroll;
+        SceneEvents.GameStart.Event -= FasterScroll;
+        SceneEvents.PlayerDead.Event -= SlowScroll;
     }
     #endregion
 

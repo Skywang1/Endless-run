@@ -32,7 +32,7 @@ public class SceneManager : MonoBehaviour
     #region public - Game Phases
     public void Clicked_GameStart()
     {
-        SceneEvents.Call_GameStarts();
+        SceneEvents.RunningStart.CallEvent();
 
         StartCoroutine(DelayedStartRunning());
     }
@@ -40,14 +40,14 @@ public class SceneManager : MonoBehaviour
     IEnumerator DelayedStartRunning()
     {
         yield return new WaitForSeconds(characterEnterDuration);
-        SceneEvents.Call_RunningStarts();
+        SceneEvents.RunningStart.CallEvent();
 
         ResetStats();
     }
 
     public void CharacterDead()
     {
-        SceneEvents.Call_PlayerDead();
+        SceneEvents.PlayerDead.CallEvent();
         //Play scoreboard animation
     }
     #endregion
@@ -55,12 +55,12 @@ public class SceneManager : MonoBehaviour
     #region Event subscribing
     void EventScribing()
     {
-        Coin.OnCoinPickup += CoinPickup;
+        SceneEvents.CoinPickup.Event += CoinPickup;
     }
 
     void OnDisable()
     {
-        Coin.OnCoinPickup -= CoinPickup;
+        SceneEvents.CoinPickup.Event -= CoinPickup;
     }
     #endregion
 
