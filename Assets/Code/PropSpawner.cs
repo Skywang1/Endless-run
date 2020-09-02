@@ -5,9 +5,11 @@ using UnityEngine;
 public class PropSpawner : MonoBehaviour
 {
     public GameObject[] Pf_Boxes;
+    public GameObject Pf_Enemy;
     public GameObject Pf_Coin;
 
     public List<Transform> spawnPoints_coins;
+    public List<Transform> spawnPoints_enemy;
     public List<Transform> spawnPoints_boxes;
 
     const float coinSpawnDelay = 0.29f;
