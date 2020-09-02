@@ -3,9 +3,9 @@
 public abstract class Interactables: MonoBehaviour
 {
     //CONST
-    const float leftEdge = -20f;
+    const float leftBound = -20f; //The point at which this object will be destroyed
 
-    Vector3 moveDir = new Vector3(-5f, 0f, 0f);
+    protected Vector3 moveDir = new Vector3(-5f, 0f, 0f);
 
     public virtual void PlayerCollided() { }
 
@@ -14,7 +14,7 @@ public abstract class Interactables: MonoBehaviour
         //Move
         transform.Translate(moveDir * Time.deltaTime);
 
-        if (transform.position.x < leftEdge)
+        if (transform.position.x < leftBound)
         {
             Destroy(gameObject);
         }

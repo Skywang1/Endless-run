@@ -1,20 +1,11 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using UnityEngine;
 
 public class SceneManager : MonoBehaviour
 {
-
-    //EVENTS
-    public delegate void CharacterEnterEvent();
-    public static event CharacterEnterEvent OnCharacterEnter;
-
-    public delegate void StartRunningEvent();
-    public static event StartRunningEvent OnStartRunning;
-
-    public delegate void PlayerDeadEvent();
-    public static event PlayerDeadEvent OnCharacterDead;
-
     //FIELDS
+    public static int phase = 0;
+
     public HUDManager HUD;
 
     //VARIABLES
@@ -37,15 +28,11 @@ public class SceneManager : MonoBehaviour
 
     }
     #endregion
-    
 
     #region public - Game Phases
     public void Clicked_GameStart()
     {
-        if (OnCharacterEnter != null)
-        {
-            OnCharacterEnter();
-        }
+        SceneEvents.Call_GameStarts();
 
         StartCoroutine(DelayedStartRunning());
     }
@@ -53,25 +40,17 @@ public class SceneManager : MonoBehaviour
     IEnumerator DelayedStartRunning()
     {
         yield return new WaitForSeconds(characterEnterDuration);
-        if (OnStartRunning != null)
-        {
-            OnStartRunning();
-        }
+        SceneEvents.Call_RunningStarts();
 
         ResetStats();
     }
 
     public void CharacterDead()
     {
-        if (OnCharacterDead != null)
-        {
-            OnCharacterDead();
-        }
-
+        SceneEvents.Call_PlayerDead();
         //Play scoreboard animation
     }
     #endregion
-
 
     #region Event subscribing
     void EventScribing()
@@ -84,7 +63,6 @@ public class SceneManager : MonoBehaviour
         Coin.OnCoinPickup -= CoinPickup;
     }
     #endregion
-
 
     #region Stats change
     void CoinPickup()

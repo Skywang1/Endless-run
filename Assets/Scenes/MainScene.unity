@@ -2982,8 +2982,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Pf_Boxes:
-  - {fileID: 2863748734509733312, guid: f8b0d7b91312d7841ab3e9ebdf655b98, type: 3}
-  Pf_Enemy: {fileID: 2863748734509733312, guid: 612f483ee5c11244db6769dcc03536e2,
+  - {fileID: 1486874033113366341, guid: bcfcd87568be8d144a34179f19d23b7e, type: 3}
+  - {fileID: 1486874033113366341, guid: 3187fe11a6b65fb4f8f8d98bfc5cc88d, type: 3}
+  - {fileID: 1486874033113366341, guid: 05e54ce1c5f72124c9d1d617c4fd3eb0, type: 3}
+  - {fileID: 1486874033113366341, guid: c7716bc6b7d4eaa4ba7c66b40ff8a7a1, type: 3}
+  Pf_Enemy: {fileID: 1486874033113366341, guid: ad559a3e34d4cea4f983948632100bfa,
     type: 3}
   Pf_Coin: {fileID: 8979888239849816508, guid: 54a0a173d522e314b82858897bc71f80, type: 3}
   spawnPoints_coins:

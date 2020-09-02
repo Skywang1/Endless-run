@@ -42,14 +42,14 @@ public class BGScrolling : MonoBehaviour
     #region Event subscribing
     void EventSubscribing ()
     {
-        SceneManager.OnCharacterEnter += FasterScroll;
-        SceneManager.OnCharacterDead += SlowScroll;
+        SceneEvents.OnGameStart += FasterScroll;
+        SceneEvents.OnPlayerDead += SlowScroll;
     }
 
     void OnDisable()
     {
-        SceneManager.OnCharacterEnter -= FasterScroll;
-        SceneManager.OnCharacterDead -= SlowScroll;
+        SceneEvents.OnGameStart -= FasterScroll;
+        SceneEvents.OnPlayerDead -= SlowScroll;
     }
     #endregion
 

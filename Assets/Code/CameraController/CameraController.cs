@@ -13,11 +13,8 @@ public class CameraController : MonoBehaviour
         anim_zoomIn = Animator.StringToHash("ZoomIn");
         anim_zoomOut = Animator.StringToHash("ZoomOut");
 
-        SceneManager.OnCharacterEnter += ZoomIn;
-        SceneManager.OnCharacterDead += ZoomOut;
-
         animator = GetComponent<Animator>();
-
+        EventSubscription();
     }
 
     void Update()
@@ -35,9 +32,18 @@ public class CameraController : MonoBehaviour
         animator.Play(anim_zoomOut);
     }
 
+    #region Scene events subscription
+    void EventSubscription ()
+    {
+        SceneEvents.OnPlayerDead += ZoomIn;
+        SceneEvents.OnGameStart += ZoomOut;
+    }
+
     void OnDisable()
     {
-        SceneManager.OnCharacterEnter -= ZoomIn;
-        SceneManager.OnCharacterDead -= ZoomOut;
+        SceneEvents.OnPlayerDead -= ZoomIn;
+        SceneEvents.OnGameStart -= ZoomOut;
     }
+    #endregion
+
 }

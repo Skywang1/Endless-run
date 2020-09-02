@@ -31,19 +31,7 @@ public class HUDManager : MonoBehaviour
     }
     #endregion
 
-    #region Event subscribing
-    void SubscribeEvents ()
-    {
-        SceneManager.OnCharacterEnter += HUDInitialization;
-        SceneManager.OnCharacterDead += CloseHUD;
-    }
 
-    void OnDisable()
-    {
-        SceneManager.OnCharacterEnter -= HUDInitialization;
-        SceneManager.OnCharacterDead -= CloseHUD;
-    }
-    #endregion
 
     #region HUD visibility
     void HUDInitialization()
@@ -76,6 +64,20 @@ public class HUDManager : MonoBehaviour
         string miliseconds = Mathf.Floor((timeElapsed * 100) % 100).ToString("00");
 
         timer.text = minutes + ":" + seconds + ":" + miliseconds;
+    }
+    #endregion
+
+    #region Event subscribing
+    void SubscribeEvents()
+    {
+        SceneEvents.OnGameStart += HUDInitialization;
+        SceneEvents.OnPlayerDead += CloseHUD;
+    }
+
+    void OnDisable()
+    {
+        SceneEvents.OnGameStart -= HUDInitialization;
+        SceneEvents.OnPlayerDead -= CloseHUD;
     }
     #endregion
 }
