@@ -45,9 +45,6 @@ public class PropGenerationManager : MonoBehaviour
     }
     #endregion
 
-
-
-
     #region Event subscribing
     void EventScribing()
     {

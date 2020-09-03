@@ -25,10 +25,7 @@ public abstract class PropGeneratorBase : MonoBehaviour
     {
         while (spawning)
         {
-            if (Random.Range(0, 4) == 0)
-            {
-                SpawnAtPosition(GetRandomSpawnPoint.position);
-            }
+            SpawnAtPosition(GetRandomSpawnPoint.position);
             yield return new WaitForSeconds(Random.Range(spawnIntervalMin, spawnIntervalMax));
         }
     }
@@ -38,4 +35,6 @@ public abstract class PropGeneratorBase : MonoBehaviour
     public GameObject GetRandomPrefab => prefabs[Random.Range(0, prefabs.Count)];
 
     public void SpawnAtPosition(Vector3 pos) => Instantiate(GetRandomPrefab, pos, Quaternion.identity);
+
+    public float GetRandomDelay => Random.Range(spawnIntervalMin, spawnIntervalMax);
 }
