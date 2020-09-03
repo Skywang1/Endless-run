@@ -9,7 +9,7 @@ using System.Linq;
 //Make sure the game's quality settings only have 3 options, as we won't be changing them here.
 //Note 1: This code does not save the resolution set by the player because every time the game opens, it saves the 
 
-public class MainMenu : MonoBehaviour
+public class MainMenuManager : MonoBehaviour
 {
     #region Public - Main menu
     public void PlayGame()

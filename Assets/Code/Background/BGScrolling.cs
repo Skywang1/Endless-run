@@ -42,7 +42,7 @@ public class BGScrolling : MonoBehaviour
     #region Event subscribing
     void EventSubscribing ()
     {
-        SceneEvents.GameStart.Event += FasterScroll;
+
         SceneEvents.PlayerDead.Event += SlowScroll;
     }
 
