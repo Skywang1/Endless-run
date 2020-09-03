@@ -36,7 +36,6 @@ public class GlobalSpeedModifier : MonoBehaviour
     #region Speed change
     void StartIncrease()
     {
-        Debug.Log("INCREASE");
         SpeedIncreasing = true;
         StartCoroutine(DoIncrease());
     }

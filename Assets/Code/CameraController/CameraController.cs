@@ -10,7 +10,6 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("camera");
         anim_zoomIn = Animator.StringToHash("ZoomIn");
         anim_zoomOut = Animator.StringToHash("ZoomOut");
 

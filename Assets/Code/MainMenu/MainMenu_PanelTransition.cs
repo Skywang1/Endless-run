@@ -16,7 +16,7 @@ namespace MainMenu
         #region Initialization
         void Awake()
         {
-            InstantHide(OptionsMenu);
+            InstantHide(MainMenu);
             InstantHide(OptionsMenu);
             StartCoroutine(DelayedInitialFade());
         }
