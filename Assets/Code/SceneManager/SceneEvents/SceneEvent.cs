@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SceneEvent
+public class SceneEvent : ScriptableObject
 {
     public delegate void delegateContainer();
     public event delegateContainer Event;

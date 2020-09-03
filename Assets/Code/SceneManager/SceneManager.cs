@@ -32,7 +32,7 @@ public class SceneManager : MonoBehaviour
     #region public - Game Phases
     public void Clicked_GameStart()
     {
-        SceneEvents.RunningStart.CallEvent();
+        SceneEvents.GameStart.CallEvent();
 
         StartCoroutine(DelayedStartRunning());
     }

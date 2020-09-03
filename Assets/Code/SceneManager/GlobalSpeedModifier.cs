@@ -16,15 +16,19 @@ public class GlobalSpeedModifier : MonoBehaviour
     float accelerationInterval = 1f;
     float accelerationAmount = 0.01f;
     bool SpeedIncreasing = false;
-    float currentSpeed = STARTING_SPEED;
-    
+
     #region MonoBehaviour
+    private void Start()
+    {
+        Speed = STARTING_SPEED;
+        EventSubscribing();
+    }
     private void Update()
     {
         //Let the game gradually slowdown after game is over
         if (!SpeedIncreasing)
         {
-            currentSpeed = Mathf.Lerp(currentSpeed, STARTING_SPEED, Time.deltaTime);
+            Speed = Mathf.Lerp(Speed, STARTING_SPEED, Time.deltaTime * 2f);
         }
     }
     #endregion
@@ -32,6 +36,7 @@ public class GlobalSpeedModifier : MonoBehaviour
     #region Speed change
     void StartIncrease()
     {
+        Debug.Log("INCREASE");
         SpeedIncreasing = true;
         StartCoroutine(DoIncrease());
     }
@@ -40,7 +45,7 @@ public class GlobalSpeedModifier : MonoBehaviour
     {
         while (SpeedIncreasing)
         {
-            currentSpeed += accelerationAmount;
+            Speed += accelerationAmount;
             SceneEvents.SpeedIncrease.CallEvent();
             yield return new WaitForSeconds(accelerationInterval);
         }

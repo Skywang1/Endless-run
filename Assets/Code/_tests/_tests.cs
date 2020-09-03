@@ -7,7 +7,6 @@ public class _tests : MyBase
     private void Start()
     {
         SceneEvents.GameStart.Event += MyFunction;
-        //SceneEventsC.GameStart.Invoke();
     }
 
 

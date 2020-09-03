@@ -10,6 +10,7 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("camera");
         anim_zoomIn = Animator.StringToHash("ZoomIn");
         anim_zoomOut = Animator.StringToHash("ZoomOut");
 
@@ -22,21 +23,21 @@ public class CameraController : MonoBehaviour
         
     }
 
-    void ZoomIn ()
-    {
-        animator.Play(anim_zoomIn);
-    }
-
     void ZoomOut()
     {
         animator.Play(anim_zoomOut);
     }
 
+    void ZoomIn ()
+    {
+        animator.Play(anim_zoomIn);
+    }
+
     #region Scene events subscription
     void EventSubscription ()
     {
-        SceneEvents.PlayerDead.Event += ZoomIn;
         SceneEvents.GameStart.Event += ZoomOut;
+        SceneEvents.PlayerDead.Event += ZoomIn;
     }
 
     void OnDisable()
