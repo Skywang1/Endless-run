@@ -4,11 +4,11 @@ public abstract class Interactables: MonoBehaviour
 {
     public float baseMoveSpeed = -5f;
 
+    protected SceneManager sceneManager;
     protected Vector3 moveDir;
 
     //CONST
     const float leftBound = -20f; //The point at which this object will be destroyed
-
 
     public virtual void PlayerCollided() { }
 
@@ -16,6 +16,9 @@ public abstract class Interactables: MonoBehaviour
     protected void Start()
     {
         Subscribe();
+
+        sceneManager = SceneManager.instance;
+
         moveDir = new Vector3(baseMoveSpeed * GlobalSpeedModifier.Speed, 0f, 0f);
     }
     #endregion

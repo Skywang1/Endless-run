@@ -7,7 +7,8 @@ public class Coin : Interactables
     #region Public - interactions
     public override void PlayerCollided()
     {
-        SceneEvents.CoinPickup.CallEvent();
+        SceneManager.instance.CoinPickup();
+        Destroy(gameObject);
     }
     #endregion
 

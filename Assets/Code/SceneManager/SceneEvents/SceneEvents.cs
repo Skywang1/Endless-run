@@ -12,7 +12,6 @@ public class SceneEvents : MonoBehaviour
     public static SceneEvent RunningStart { get; private set; }
 
     public static SceneEvent SpeedIncrease { get; private set; }
-    public static SceneEvent CoinPickup { get; private set; } //This need to be changed, it's not a major scene event 
     public static SceneEvent PlayerDead { get; private set; }
     public static SceneEvent GameOverBackToMain { get; private set; }
 
@@ -21,8 +20,9 @@ public class SceneEvents : MonoBehaviour
         GameStart   = new SceneEvent();
         RunningStart = new SceneEvent();
         SpeedIncrease = new SceneEvent();
-        CoinPickup = new SceneEvent();
         PlayerDead = new SceneEvent();
         GameOverBackToMain = new SceneEvent();
     }
 }
+
+

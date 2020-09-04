@@ -4,12 +4,21 @@ using System.Collections;
 
 public class HUDManager : MonoBehaviour
 {
+    public static HUDManager instance;
+
     public GameObject HUD_Group;
-    public Text coins;
+    public HealthBar healthBar;
+    public CoinScore coinScore;
+    
     public Text timer;
 
     bool startedTimer = false;
     float timeElapsed;
+
+    void Awake()
+    {
+        instance = this;
+    }
 
     void Start()
     {
@@ -27,11 +36,14 @@ public class HUDManager : MonoBehaviour
     #region Public - Setting values
     public void SetCoins (int amount)
     {
-        coins.text = amount.ToString();
+        coinScore.SetCoins(amount);
+    }
+
+    public void SetHealth(int amount)
+    {
+        healthBar.SetHealth(amount);
     }
     #endregion
-
-
 
     #region HUD visibility
     void HUDInitialization()
@@ -81,14 +93,3 @@ public class HUDManager : MonoBehaviour
     }
     #endregion
 }
-
-/*
- void UpdateTimer()
-    {
-        timeElapsed += Time.deltaTime;
-        string minutes = Mathf.Floor(timeElapsed / 60f).ToString("00");
-        string seconds = Mathf.Floor(timeElapsed % 60).ToString("00");
-
-        timer.text = minutes + ":" + seconds;
-    }
- */

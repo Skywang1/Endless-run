@@ -48,14 +48,17 @@ public class PropGenerationManager : MonoBehaviour
     #region Event subscribing
     void EventScribing()
     {
-        SceneEvents.RunningStart.Event += StartSpawn;
-        SceneEvents.PlayerDead.Event += StopSpawn;
+        //Subbing twice to StopSpawn in case we quit game by pressing PauseMenu's Quit button
+        SceneEvents.RunningStart.Event          += StartSpawn;
+        SceneEvents.PlayerDead.Event            += StopSpawn;
+        SceneEvents.GameOverBackToMain.Event    += StopSpawn; 
     }
 
     void OnDisable()
     {
-        SceneEvents.RunningStart.Event -= StartSpawn;
-        SceneEvents.PlayerDead.Event -= StopSpawn;
+        SceneEvents.RunningStart.Event          -= StartSpawn;
+        SceneEvents.PlayerDead.Event            -= StopSpawn;
+        SceneEvents.GameOverBackToMain.Event    -= StopSpawn;
     }
     #endregion
 

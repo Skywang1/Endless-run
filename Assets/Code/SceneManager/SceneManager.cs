@@ -1,31 +1,56 @@
 ﻿using System.Collections;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class SceneManager : MonoBehaviour
 {
     //FIELDS
-    public static int phase = 0;
+    public static SceneManager instance;    
 
-    public HUDManager HUD;
+    public MainMenuCanvasTransition mainMenuCanvasTransition;
 
     //VARIABLES
     [SerializeField]
     float characterEnterDuration = 1f;
 
-    int coins;
-    int score;
-    int timeElapsed;
+    HUDManager HUD;
+
+    //Properties
+    public static GameStates gameState { get; private set; }
+    public int Health { get; private set; }
+    public int Coins { get; private set; }
+    public int Score { get; private set; }
+    public int TimeElapsed { get; private set; }
 
     #region MonoBehavior
 
-    void Start()
+    private void Awake()
     {
-        EventScribing();
+        instance = this;
+        
+        gameState = GameStates.MainMenu;
     }
 
-    void Update()
+    void Start()
     {
+        Health = 3;
+        Score = 0;
+        Coins = 0;
 
+        EventScribing();
+    }
+    #endregion
+
+    #region Public - stats changes
+    public void CoinPickup()
+    {
+        HUD.SetCoins(++Coins);
+    }
+
+    public void ResetStats()
+    {
+        TimeElapsed = 0;
+        Score = 0;
     }
     #endregion
 
@@ -48,32 +73,33 @@ public class SceneManager : MonoBehaviour
     public void CharacterDead()
     {
         SceneEvents.PlayerDead.CallEvent();
+        SceneEvents.GameOverBackToMain.CallEvent();
         //Play scoreboard animation
     }
+    #endregion
+
+    #region Set scene state
+    void GameStart () => gameState = GameStates.MainMenu;
+    void RunningStart() => gameState = GameStates.Running;    
+    void PlayerDead() => gameState = GameStates.Scoreboard;
+    void GameOverBackToMain() => gameState = GameStates.MainMenu;
     #endregion
 
     #region Event subscribing
     void EventScribing()
     {
-        SceneEvents.CoinPickup.Event += CoinPickup;
+        SceneEvents.RunningStart.Event          += RunningStart;
+        SceneEvents.GameStart.Event             += GameStart;
+        SceneEvents.PlayerDead.Event            += PlayerDead;
+        SceneEvents.GameOverBackToMain.Event    += GameOverBackToMain;
     }
 
     void OnDisable()
     {
-        SceneEvents.CoinPickup.Event -= CoinPickup;
-    }
-    #endregion
-
-    #region Stats change
-    void CoinPickup()
-    {
-        HUD.SetCoins(++coins);
-    }
-
-    void ResetStats()
-    {
-        timeElapsed = 0;
-        score = 0;
+        SceneEvents.RunningStart.Event          -= RunningStart;
+        SceneEvents.GameStart.Event             -= GameStart;
+        SceneEvents.PlayerDead.Event            -= PlayerDead;
+        SceneEvents.GameOverBackToMain.Event    -= GameOverBackToMain;
     }
     #endregion
 }
