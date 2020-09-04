@@ -3,7 +3,7 @@ using System.Collections;
 
 //This class if for calling major game events
 //Game Start >>> Running Start >>> Player Dead >>> Back to main
-public class SceneEvents : MonoBehaviour
+public static class SceneEvents 
 {
     //Game start: player clicks Start, camera begins to zoom out
     public static SceneEvent GameStart { get; private set; }
@@ -15,7 +15,7 @@ public class SceneEvents : MonoBehaviour
     public static SceneEvent PlayerDead { get; private set; }
     public static SceneEvent GameOverBackToMain { get; private set; }
 
-    void Awake()
+    public static void Initialize()
     {
         GameStart   = new SceneEvent();
         RunningStart = new SceneEvent();
@@ -23,6 +23,16 @@ public class SceneEvents : MonoBehaviour
         PlayerDead = new SceneEvent();
         GameOverBackToMain = new SceneEvent();
     }
+
+    public static void UnSubscribeAll()
+    {
+        GameStart.Unsubscribe();
+        RunningStart.Unsubscribe();
+        SpeedIncrease.Unsubscribe();
+        PlayerDead.Unsubscribe();
+        GameOverBackToMain.Unsubscribe();
+    }
+
 }
 
 

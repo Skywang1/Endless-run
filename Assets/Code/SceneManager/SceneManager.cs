@@ -26,7 +26,9 @@ public class SceneManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        
+
+        SceneEvents.Initialize();
+
         gameState = GameStates.MainMenu;
         Health = 3;
         Coins = 0;

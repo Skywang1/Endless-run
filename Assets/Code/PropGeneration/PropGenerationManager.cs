@@ -22,6 +22,7 @@ public class PropGenerationManager : MonoBehaviour
         platformGenerator   = GetComponent<PlatformGenerator>();
     }
 
+
     #region Spawn start & stop
     void StartSpawn ()
     {
@@ -60,4 +61,5 @@ public class PropGenerationManager : MonoBehaviour
         SceneEvents.GameOverBackToMain.Event    -= StopSpawn;
     }
     #endregion
+
 }
