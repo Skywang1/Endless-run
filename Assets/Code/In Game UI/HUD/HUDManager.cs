@@ -1,16 +1,17 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class HUDManager : MonoBehaviour
 {
     public static HUDManager instance;
 
-    public GameObject HUD_Group;
-    public HealthBar healthBar;
-    public CoinScore coinScore;
-    
-    public Text timer;
+    [SerializeField] GameObject HUD_Group;
+    [SerializeField] HealthBar healthBar;
+    [SerializeField] CoinScore coinScore;
+
+    [SerializeField] Text timer;
 
     bool startedTimer = false;
     float timeElapsed;
@@ -22,6 +23,7 @@ public class HUDManager : MonoBehaviour
 
     void Start()
     {
+        CloseHUD();
         SubscribeEvents();
     }
 
@@ -43,6 +45,11 @@ public class HUDManager : MonoBehaviour
     {
         healthBar.SetHealth(amount);
     }
+
+    public void ResetTimer()
+    {
+        timeElapsed = 0f;
+    }
     #endregion
 
     #region HUD visibility
@@ -63,11 +70,6 @@ public class HUDManager : MonoBehaviour
     #endregion
 
     #region HUD Timer
-    void ResetTimer ()
-    {
-        timeElapsed = 0f;
-    }
-
     void UpdateTimer()
     {
         timeElapsed += Time.deltaTime;

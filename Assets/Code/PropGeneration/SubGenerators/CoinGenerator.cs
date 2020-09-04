@@ -11,7 +11,7 @@ public class CoinGenerator : PropGeneratorBase
 
 protected override IEnumerator DoSpawn ()
     {
-        while (spawning)
+        while (spawning && SceneManager.gameState == GameStates.Running)
         {
             switch (GetRandomPatternIndex(0, 4))
             {

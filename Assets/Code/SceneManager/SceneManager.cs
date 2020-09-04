@@ -19,7 +19,6 @@ public class SceneManager : MonoBehaviour
     public static GameStates gameState { get; private set; }
     public int Health { get; private set; }
     public int Coins { get; private set; }
-    public int Score { get; private set; }
     public int TimeElapsed { get; private set; }
 
     #region MonoBehavior
@@ -29,14 +28,13 @@ public class SceneManager : MonoBehaviour
         instance = this;
         
         gameState = GameStates.MainMenu;
+        Health = 3;
+        Coins = 0;
     }
 
     void Start()
     {
-        Health = 3;
-        Score = 0;
-        Coins = 0;
-
+        HUD = HUDManager.instance;
         EventScribing();
     }
     #endregion
@@ -50,15 +48,16 @@ public class SceneManager : MonoBehaviour
     public void ResetStats()
     {
         TimeElapsed = 0;
-        Score = 0;
+        Coins = 0;
+        HUD.SetCoins(Coins);
     }
     #endregion
 
     #region public - Game Phases
     public void Clicked_GameStart()
     {
-        SceneEvents.GameStart.CallEvent();
-
+        ResetStats();
+        SceneEvents.GameStart.CallEvent();        
         StartCoroutine(DelayedStartRunning());
     }
 
@@ -66,8 +65,6 @@ public class SceneManager : MonoBehaviour
     {
         yield return new WaitForSeconds(characterEnterDuration);
         SceneEvents.RunningStart.CallEvent();
-
-        ResetStats();
     }
 
     public void CharacterDead()

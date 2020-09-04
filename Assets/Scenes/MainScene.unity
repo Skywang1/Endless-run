@@ -1878,7 +1878,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MainMenu: {fileID: 2077627380}
   OptionsMenu: {fileID: 2089950308}
-  TransitionDuration: 0.2
 --- !u!1 &590550363
 GameObject:
   m_ObjectHideFlags: 0
@@ -5520,8 +5519,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 567524328}
-        m_MethodName: 
+      - m_Target: {fileID: 567524329}
+        m_MethodName: Quit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6297,7 +6296,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7b177492cbcb89a469aeba47dd2d181b, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.04
+  m_Volume: 0.222
   m_Pitch: 1
   Loop: 1
   Mute: 0

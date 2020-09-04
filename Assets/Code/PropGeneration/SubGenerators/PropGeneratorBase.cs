@@ -23,7 +23,7 @@ public abstract class PropGeneratorBase : MonoBehaviour
 
     protected virtual IEnumerator DoSpawn()
     {
-        while (spawning)
+        while (spawning && SceneManager.gameState == GameStates.Running)
         {
             SpawnAtPosition(GetRandomSpawnPoint.position);
             yield return new WaitForSeconds(Random.Range(spawnIntervalMin, spawnIntervalMax));

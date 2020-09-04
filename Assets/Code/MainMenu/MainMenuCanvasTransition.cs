@@ -7,13 +7,15 @@ public class MainMenuCanvasTransition : MonoBehaviour
     public CanvasGroup OptionsMenu;
 
     [Range(0, 5f)]
-    public float TransitionDuration = 1f;
+    float TransitionDuration = 0.1f;
 
     bool inTransition = false;
 
     #region Initialization
     void Start()
     {
+        EventSubscription();
+
         CanvasGroupHelper.InstantHide(MainMenu);
         CanvasGroupHelper.InstantHide(OptionsMenu);
         FadeInMainMenu();
@@ -46,10 +48,16 @@ public class MainMenuCanvasTransition : MonoBehaviour
     }
     #endregion
 
-    #region Fade in mainmenu
+    #region Singular fade
+    void FadeOutMainMenu ()
+    {
+        Debug.Log("fade out");
+        StartCoroutine(CanvasGroupHelper.CanvasFadeOut(MainMenu, TransitionDuration));
+    }
+
     void FadeInMainMenu ()
     {
-        StartCoroutine(CanvasGroupHelper.CanvasFadeIn(MainMenu, TransitionDuration));
+        StartCoroutine(DelayedFadeIn_MainMenu());
     }
 
     IEnumerator DelayedFadeIn_MainMenu()
@@ -63,12 +71,14 @@ public class MainMenuCanvasTransition : MonoBehaviour
     #region Scene events subscription
     void EventSubscription()
     {
-        SceneEvents.GameOverBackToMain.Event += FadeInMainMenu;
+        SceneEvents.GameStart.Event             += FadeOutMainMenu;
+        SceneEvents.GameOverBackToMain.Event    += FadeInMainMenu;
     }
 
     void OnDisable()
     {
-        SceneEvents.GameOverBackToMain.Event -= FadeInMainMenu;
+        SceneEvents.GameStart.Event             -= FadeOutMainMenu;
+        SceneEvents.GameOverBackToMain.Event    -= FadeInMainMenu;
     }
     #endregion
 }

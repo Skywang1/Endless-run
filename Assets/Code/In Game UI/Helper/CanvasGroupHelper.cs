@@ -39,6 +39,21 @@ public static class CanvasGroupHelper
         canvas.blocksRaycasts = true;
     }
 
+    public static IEnumerator CanvasFadeOut(CanvasGroup canvas, float transitionTime)
+    {
+        float t = transitionTime;
+        while (t > 0)
+        {
+            t -= Time.deltaTime;
+            canvas.alpha = t / transitionTime;
+
+            yield return null;
+        }
+
+        canvas.interactable = false;
+        canvas.blocksRaycasts = false;
+    }
+
     public static void InstantHide(CanvasGroup canvasToHide)
     {
         canvasToHide.interactable = false;

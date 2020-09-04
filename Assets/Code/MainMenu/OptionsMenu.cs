@@ -20,7 +20,7 @@ public class OptionsMenu : MonoBehaviour
 
     //Cache Options menu values as fields so we can save them in player prefs later.
     //Resolution[] allResolutions;
-    List<Resolution> supportedResolutions;
+    List<Resolution> resolutions;
     bool isFullscreen;
     int resolutionIndex = -1;
     int qualityIndex;
@@ -38,7 +38,7 @@ public class OptionsMenu : MonoBehaviour
         //dropdown values outside.
         resolutionIndex = index;
 
-        Screen.SetResolution(supportedResolutions[index].width, supportedResolutions[index].height, Screen.fullScreen);
+        Screen.SetResolution(resolutions[index].width, resolutions[index].height, Screen.fullScreen);
     }
 
     public void SetQuality(int index)
@@ -84,8 +84,8 @@ public class OptionsMenu : MonoBehaviour
         PlayerPrefs.SetInt(Key_Quality, qualityIndex);
 
         //Save resolution
-        PlayerPrefs.SetInt(Key_Width, supportedResolutions[resolutionIndex].width);
-        PlayerPrefs.SetInt(Key_Height, supportedResolutions[resolutionIndex].height);
+        PlayerPrefs.SetInt(Key_Width, resolutions[resolutionIndex].width);
+        PlayerPrefs.SetInt(Key_Height, resolutions[resolutionIndex].height);
     }
     #endregion
 
@@ -97,14 +97,20 @@ public class OptionsMenu : MonoBehaviour
         //Goal: Go through all resolutions, save them as strings, then populate the dropdown box's options with it.
         //Note: We use the following line instead of "allResolutions = Screen.resolutions;" to prevent returning duplicates 
         //of the same resolution in the build version.
-        supportedResolutions = Screen.resolutions.Where(resolution => resolution.refreshRate == 60).ToList();
+        resolutions = Screen.resolutions.ToList();
+        
+        //supportedResolutions = Screen.resolutions.Where(resolution => resolution.refreshRate == 60).ToList();
         List<string> options = new List<string>();
 
-        for (int i = 0; i < supportedResolutions.Count; i++)
+        for (int i = 0; i < resolutions.Count; i++)
         {
-            options.Add(supportedResolutions[i].width + "x" + supportedResolutions[i].height);
+            string s = resolutions[i].width + "x" + resolutions[i].height + "@" + resolutions[i].refreshRate;
+            if (!options.Contains(s))
+            {
+                options.Add(s);
+            }
         }
-
+        //if (options.Contains(option));
         Dropdown_Resolutions.AddOptions(options);
         Dropdown_Resolutions.RefreshShownValue();
     }
@@ -117,7 +123,7 @@ public class OptionsMenu : MonoBehaviour
     //... then pick the largest supportedResolution (i.e. the last index).
     void LoadResolution()
     {
-        if (supportedResolutions == null || supportedResolutions.Count == 0)
+        if (resolutions == null || resolutions.Count == 0)
         {
             PopulateResolutionDropdownBox();
         }
@@ -129,10 +135,10 @@ public class OptionsMenu : MonoBehaviour
         if (saved_w != 0 && saved_h != 0)
         {
             Debug.Log("Has saved resolution data in PlayerPrefs.");
-            for (int i = 0; i < supportedResolutions.Count; i++)
+            for (int i = 0; i < resolutions.Count; i++)
             {
-                if (saved_w == supportedResolutions[i].width &&
-                    saved_h == supportedResolutions[i].height)
+                if (saved_w == resolutions[i].width &&
+                    saved_h == resolutions[i].height)
                 {
                     Dropdown_Resolutions.value = i;
                     SetResolution(i);
@@ -149,10 +155,10 @@ public class OptionsMenu : MonoBehaviour
         }
 
         //2. See if there is a supported resolution that matches the screen.
-        for (int i = 0; i < supportedResolutions.Count; i++)
+        for (int i = 0; i < resolutions.Count; i++)
         {
-            if (Screen.currentResolution.width == supportedResolutions[i].width &&
-                Screen.currentResolution.height == supportedResolutions[i].height)
+            if (Screen.currentResolution.width == resolutions[i].width &&
+                Screen.currentResolution.height == resolutions[i].height)
             {
                 Dropdown_Resolutions.value = i;
                 SetResolution(i);
@@ -166,8 +172,8 @@ public class OptionsMenu : MonoBehaviour
         //3. Pick the largest supportedResolution
         Debug.Log("Picking the last option in supportedResolutions.");
 
-        Dropdown_Resolutions.value = supportedResolutions.Count - 1;
-        SetResolution(supportedResolutions.Count - 1);
+        Dropdown_Resolutions.value = resolutions.Count - 1;
+        SetResolution(resolutions.Count - 1);
     }
     #endregion
 }

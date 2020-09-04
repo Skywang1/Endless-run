@@ -49,7 +49,7 @@ public class PauseMenu : MonoBehaviour
     #region Pause logic
     void SetPause(bool pause)
     {
-        Debug.Log("Set pause " + isPaused);
+        //Debug.Log("Set pause " + isPaused);
         isPaused = pause;
         if (isPaused)
         {

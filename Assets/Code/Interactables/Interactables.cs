@@ -27,11 +27,13 @@ public abstract class Interactables: MonoBehaviour
     void Subscribe()
     {
         SceneEvents.SpeedIncrease.Event += SpeedUp;
+        SceneEvents.PlayerDead.Event += Destroy;
     }
 
     protected void OnDisable()
     {
         SceneEvents.SpeedIncrease.Event -= SpeedUp;
+        SceneEvents.PlayerDead.Event -= Destroy;
     }
     #endregion
 
@@ -56,5 +58,10 @@ public abstract class Interactables: MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    protected void Destroy ()
+    {
+        Destroy(gameObject);
     }
 }
