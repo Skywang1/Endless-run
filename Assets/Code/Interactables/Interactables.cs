@@ -49,10 +49,10 @@ public abstract class Interactables: MonoBehaviour
     }
     #endregion
 
-    protected void MoveUpdate ()
+    protected virtual void MoveUpdate ()
     {
         //Move
-        transform.Translate(moveDir * Time.deltaTime);
+        transform.Translate(moveDir * Time.deltaTime, Space.World);
 
         if (transform.position.x < leftBound)
         {

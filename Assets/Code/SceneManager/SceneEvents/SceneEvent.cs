@@ -7,8 +7,17 @@ public class SceneEvent
     public delegate void delegateContainer();
     public event delegateContainer Event;
 
+    string eventName;
+
+    public SceneEvent(string eventName)
+    {
+        this.eventName = eventName;
+    }
+
     public void CallEvent ()
     {
+        //Debug.Log("-EVENT- " + eventName);
+
         Event?.Invoke();
     }
 

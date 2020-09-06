@@ -14,7 +14,7 @@ public class GlobalSpeedModifier : MonoBehaviour
 
     //Variables
     float accelerationInterval = 1f;
-    float accelerationAmount = 0.01f;
+    float accelerationAmount = 0.05f;
     bool SpeedIncreasing = false;
 
     #region MonoBehaviour
@@ -32,6 +32,11 @@ public class GlobalSpeedModifier : MonoBehaviour
         }
     }
     #endregion
+
+    //private void OnGUI()
+    //{
+    //    GUI.Label(new Rect(20, 20, 200, 20), "Global Speed: " + Speed);
+    //}
 
     #region Speed change
     void StartIncrease()

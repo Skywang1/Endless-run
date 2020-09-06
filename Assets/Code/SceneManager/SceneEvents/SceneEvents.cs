@@ -17,11 +17,11 @@ public static class SceneEvents
 
     public static void Initialize()
     {
-        GameStart   = new SceneEvent();
-        RunningStart = new SceneEvent();
-        SpeedIncrease = new SceneEvent();
-        PlayerDead = new SceneEvent();
-        GameOverBackToMain = new SceneEvent();
+        GameStart   = new SceneEvent("Game start");
+        RunningStart = new SceneEvent("Running start");
+        SpeedIncrease = new SceneEvent("+");
+        PlayerDead = new SceneEvent("Player dead");
+        GameOverBackToMain = new SceneEvent("Back to main");
     }
 
     public static void UnSubscribeAll()

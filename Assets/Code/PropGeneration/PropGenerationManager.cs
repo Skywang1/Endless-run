@@ -6,8 +6,6 @@ using UnityEngine;
 [RequireComponent(typeof(PlatformGenerator))]
 public class PropGenerationManager : MonoBehaviour
 {
-    bool spawning = false;
-
     PropGeneratorBase platformGenerator;
     PropGeneratorBase boxGenerator;
     PropGeneratorBase coinGenerator;
@@ -15,6 +13,7 @@ public class PropGenerationManager : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("start");
         EventScribing();
         boxGenerator = GetComponent<BoxGenerator>();
         coinGenerator = GetComponent<CoinGenerator>();
@@ -26,22 +25,21 @@ public class PropGenerationManager : MonoBehaviour
     #region Spawn start & stop
     void StartSpawn ()
     {
-        spawning = true;
+        Debug.Log("Start spawn");
         boxGenerator.StartSpawn();
         coinGenerator.StartSpawn();
         
         enemyGenerator.StartSpawn();
-        platformGenerator.StartSpawn();
+        //platformGenerator.StartSpawn();
     }
 
     void StopSpawn ()
     {
-        spawning = false;
-        boxGenerator.StopSpawn();
+        //boxGenerator.StopSpawn();
         coinGenerator.StopSpawn();
         
         enemyGenerator.StopSpawn();
-        platformGenerator.StopSpawn();
+        //platformGenerator.StopSpawn();
     }
     #endregion
 
