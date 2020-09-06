@@ -13,7 +13,11 @@ public class SceneManager : MonoBehaviour
     [SerializeField]
     float characterEnterDuration = 1f;
 
+    //References
     HUDManager HUD;
+
+    //Const
+    const int StartingHealth = 3;
 
     //Properties
     public static GameStates gameState { get; private set; }
@@ -39,27 +43,57 @@ public class SceneManager : MonoBehaviour
         HUD = HUDManager.instance;
         EventScribing();
     }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            ReduceHealth();
+        }
+        if (Input.GetKeyDown(KeyCode.C))
+            CoinPickup(100);
+    }
     #endregion
 
     #region Public - stats changes
-    public void CoinPickup()
+    public void CoinPickup(int value =  10)
     {
-        HUD.SetCoins(++Coins);
+        Coins += value;
+        HUD.SetCoins(Coins);
     }
 
     public void ResetStats()
     {
+        Health = StartingHealth;
         TimeElapsed = 0;
         Coins = 0;
+
         HUD.SetCoins(Coins);
+        HUD.SetHealth(Health);
+    }
+
+    public void ReduceHealth ()
+    {
+        if (gameState == GameStates.Running )
+        {
+            if (--Health <= 0)
+            {
+                SceneEvents.PlayerDead.CallEvent();
+            }
+            else
+            {
+                HUD.SetHealth(Health);
+            }
+        }
     }
     #endregion
 
-    #region public - Game Phases
-    public void Clicked_GameStart()
+    #region Scene state transitions
+    //GAME START
+    void GameStart ()
     {
         ResetStats();
-        SceneEvents.GameStart.CallEvent();        
+        gameState = GameStates.MainMenu;
         StartCoroutine(DelayedStartRunning());
     }
 
@@ -69,18 +103,16 @@ public class SceneManager : MonoBehaviour
         SceneEvents.RunningStart.CallEvent();
     }
 
-    public void CharacterDead()
-    {
-        SceneEvents.PlayerDead.CallEvent();
-        SceneEvents.GameOverBackToMain.CallEvent();
-        //Play scoreboard animation
-    }
-    #endregion
-
-    #region Set scene state
-    void GameStart () => gameState = GameStates.MainMenu;
+    //RUNNING START
     void RunningStart() => gameState = GameStates.Running;    
-    void PlayerDead() => gameState = GameStates.Scoreboard;
+
+    //SCOREBOARD
+    void PlayerDead()
+    {
+        gameState = GameStates.Scoreboard;
+    }
+
+    //BACK TO MAIN
     void GameOverBackToMain() => gameState = GameStates.MainMenu;
     #endregion
 

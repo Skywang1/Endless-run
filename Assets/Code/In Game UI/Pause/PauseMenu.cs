@@ -34,13 +34,12 @@ public class PauseMenu : MonoBehaviour
             isPaused = !isPaused;
 
             SetPause(isPaused);
-        }
-        
+        }        
     }
 
     public void PauseMenu_QuitGame()
-    {        
-        SceneManager.instance.CharacterDead();
+    {
+        SceneEvents.PlayerDead.CallEvent();
         isPaused = false;
         SetPause(isPaused);
     }

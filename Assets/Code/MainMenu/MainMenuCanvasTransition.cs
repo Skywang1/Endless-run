@@ -27,7 +27,7 @@ public class MainMenuCanvasTransition : MonoBehaviour
     {
         if (!inTransition)
         {
-            StartCoroutine(CanvasGroupHelper.CanvasCrossfade(MainMenu, OptionsMenu, TransitionDuration));
+            StartCoroutine(CanvasGroupHelper.CrossfadeCoroutine(MainMenu, OptionsMenu, TransitionDuration));
         }
     }
 
@@ -35,7 +35,7 @@ public class MainMenuCanvasTransition : MonoBehaviour
     {
         if (!inTransition)
         {
-            StartCoroutine(CanvasGroupHelper.CanvasCrossfade(OptionsMenu, MainMenu, TransitionDuration));
+            StartCoroutine(CanvasGroupHelper.CrossfadeCoroutine(OptionsMenu, MainMenu, TransitionDuration));
         }
     }
 
@@ -52,7 +52,7 @@ public class MainMenuCanvasTransition : MonoBehaviour
     void FadeOutMainMenu ()
     {
         Debug.Log("fade out");
-        StartCoroutine(CanvasGroupHelper.CanvasFadeOut(MainMenu, TransitionDuration));
+        StartCoroutine(CanvasGroupHelper.FadeOutCoroutine(MainMenu, TransitionDuration));
     }
 
     void FadeInMainMenu ()
@@ -63,7 +63,7 @@ public class MainMenuCanvasTransition : MonoBehaviour
     IEnumerator DelayedFadeIn_MainMenu()
     {
         yield return new WaitForSeconds(0.5f);
-        StartCoroutine(CanvasGroupHelper.CanvasFadeIn(MainMenu, TransitionDuration));
+        StartCoroutine(CanvasGroupHelper.FadeInCoroutine(MainMenu, TransitionDuration));
     }
     #endregion
 

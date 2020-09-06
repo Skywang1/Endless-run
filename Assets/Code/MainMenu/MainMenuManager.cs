@@ -14,7 +14,7 @@ public class MainMenuManager : MonoBehaviour
     #region Public - Main menu
     public void PlayGame()
     {
-        //UnityEngine.SceneManagement.SceneManager.LoadScene(SceneIndex_Running);
+        SceneEvents.GameStart.CallEvent();
     }
 
     public void Quit ()

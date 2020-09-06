@@ -32,13 +32,15 @@ protected override IEnumerator DoSpawn ()
         }
     }
 
-    
-
     IEnumerator SpawnCoinLinearSequence()
     {
         Vector3 pos = GetRandomSpawnPoint.position;
-        for (int i = 0; i < Random.Range(1, 5); i++)
+
+        int i = 0;
+        int end = Random.Range(1, 5);
+        while (spawning & i < end)
         {
+            i++;
             SpawnAtPosition(pos);
             yield return new WaitForSeconds(spawnIntervalMin);
         }
@@ -52,8 +54,10 @@ protected override IEnumerator DoSpawn ()
         Vector3 pos1 = spawnPoints[index1].position;
         Vector3 pos2 = spawnPoints[index2].position;
 
-        for (int i = 0; i < Random.Range(4, 9); i++)
+        int i = 0;
+        int end = Random.Range(4, 9);
         {
+            i++;
             SpawnAtPosition(pos1);
             SpawnAtPosition(pos2);
             yield return new WaitForSeconds(spawnIntervalMin);
@@ -70,7 +74,7 @@ protected override IEnumerator DoSpawn ()
 
         bool rise = false;
 
-        while (strokes < 4)
+        while (spawning && strokes < 4)
         {
             SpawnAtPosition(spawnPoints[index].position);
 

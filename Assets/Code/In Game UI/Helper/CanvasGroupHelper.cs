@@ -4,7 +4,7 @@ using System.Collections;
 
 public static class CanvasGroupHelper
 {
-    public static IEnumerator CanvasCrossfade(CanvasGroup canvasToHide, CanvasGroup canvaToReveal, float transitionTime)
+    public static IEnumerator CrossfadeCoroutine(CanvasGroup canvasToHide, CanvasGroup canvaToReveal, float transitionTime)
     {
         //Disale 
         canvasToHide.interactable = false;
@@ -24,7 +24,7 @@ public static class CanvasGroupHelper
         canvaToReveal.blocksRaycasts = true;
     }
 
-    public static IEnumerator CanvasFadeIn(CanvasGroup canvas, float transitionTime)
+    public static IEnumerator FadeInCoroutine(CanvasGroup canvas, float transitionTime)
     {
         float t = 0;
         while (t < transitionTime)
@@ -34,12 +34,13 @@ public static class CanvasGroupHelper
 
             yield return null;
         }
+        canvas.alpha = 1f;
 
         canvas.interactable = true;
         canvas.blocksRaycasts = true;
     }
 
-    public static IEnumerator CanvasFadeOut(CanvasGroup canvas, float transitionTime)
+    public static IEnumerator FadeOutCoroutine(CanvasGroup canvas, float transitionTime)
     {
         float t = transitionTime;
         while (t > 0)
@@ -49,7 +50,7 @@ public static class CanvasGroupHelper
 
             yield return null;
         }
-
+        canvas.alpha = 0f;
         canvas.interactable = false;
         canvas.blocksRaycasts = false;
     }

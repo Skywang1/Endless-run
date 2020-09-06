@@ -13,7 +13,6 @@ public class PropGenerationManager : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("start");
         EventScribing();
         boxGenerator = GetComponent<BoxGenerator>();
         coinGenerator = GetComponent<CoinGenerator>();
@@ -25,7 +24,6 @@ public class PropGenerationManager : MonoBehaviour
     #region Spawn start & stop
     void StartSpawn ()
     {
-        Debug.Log("Start spawn");
         boxGenerator.StartSpawn();
         coinGenerator.StartSpawn();
         
@@ -35,7 +33,7 @@ public class PropGenerationManager : MonoBehaviour
 
     void StopSpawn ()
     {
-        //boxGenerator.StopSpawn();
+        boxGenerator.StopSpawn();
         coinGenerator.StopSpawn();
         
         enemyGenerator.StopSpawn();
