@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 
+//Container for individual scene events
 public class SceneEvent 
 {
     public delegate void delegateContainer();

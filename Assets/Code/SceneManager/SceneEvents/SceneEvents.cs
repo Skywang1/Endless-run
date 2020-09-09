@@ -32,7 +32,4 @@ public static class SceneEvents
         PlayerDead.Unsubscribe();
         GameOverBackToMain.Unsubscribe();
     }
-
 }
-
-

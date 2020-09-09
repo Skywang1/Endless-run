@@ -71,9 +71,11 @@ public class ScoreBoard : MonoBehaviour
     #region WaitForKey
     IEnumerator AllowForAnykeyToQuit ()
     {
-        yield return new WaitForSeconds(0.5f);
-        waitingToQuit = true;
+        yield return new WaitForSeconds(2f);
         anyKeyToQuit.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+        waitingToQuit = true;
+        
     }
     #endregion
 

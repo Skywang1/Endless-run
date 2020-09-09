@@ -7,7 +7,7 @@ public class SceneManager : MonoBehaviour
     //FIELDS
     public static SceneManager instance;    
 
-    public MainMenuCanvasTransition mainMenuCanvasTransition;
+    public MainMenuCanvasTransition mainMenuCanvasTransition; //Handles canvas transition
 
     //VARIABLES
     [SerializeField]
@@ -17,13 +17,13 @@ public class SceneManager : MonoBehaviour
     HUDManager HUD;
 
     //Const
-    const int StartingHealth = 3;
+    const int StartingHealth = 3; //Max health
 
     //Properties
     public static GameStates gameState { get; private set; }
     public int Health { get; private set; }
-    public int Coins { get; private set; }
-    public int TimeElapsed { get; private set; }
+    public int Coins { get; private set; } 
+    public int TimeElapsed { get; private set; } //In game timer
 
     #region MonoBehavior
 
