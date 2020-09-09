@@ -12,6 +12,8 @@ public class OptionsMenu : MonoBehaviour
     public Dropdown Dropdown_Resolutions;
     public Toggle Toggle_Fullscreen;
 
+    //Use stored consts to call scene transition and save playerprefs, to avoid
+    //making a typo.
     const int SceneIndex_Running = 1;
     const string Key_Fullscreen = "Fullscreen";
     const string Key_Quality = "Quality";

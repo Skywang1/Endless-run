@@ -11,7 +11,7 @@ public class SceneManager : MonoBehaviour
 
     //VARIABLES
     [SerializeField]
-    float characterEnterDuration = 1f;
+    float characterEnterDuration = 1f; //
 
     //References
     HUDManager HUD;

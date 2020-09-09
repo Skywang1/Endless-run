@@ -6,6 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(PlatformGenerator))]
 public class PropGenerationManager : MonoBehaviour
 {
+    //Have the prop generation code in these seperate classes so that we don't 
+    //clutter this class, and to allow them have their own unique generation logic.
     PropGeneratorBase platformGenerator;
     PropGeneratorBase boxGenerator;
     PropGeneratorBase coinGenerator;
@@ -44,7 +46,8 @@ public class PropGenerationManager : MonoBehaviour
     #region Event subscribing
     void EventScribing()
     {
-        //Subbing twice to StopSpawn in case we quit game by pressing PauseMenu's Quit button
+        //Subscribing to StopSpawn twice to allow us to halt spawning in both playerDead
+        //event as well as when we quit game by pressing PauseMenu's Quit button
         SceneEvents.RunningStart.Event          += StartSpawn;
         SceneEvents.PlayerDead.Event            += StopSpawn;
         SceneEvents.GameOverBackToMain.Event    += StopSpawn; 
