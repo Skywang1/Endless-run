@@ -335,7 +335,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &83222539
 Transform:
   m_ObjectHideFlags: 0
@@ -535,7 +535,7 @@ Transform:
   - {fileID: 1415789214}
   - {fileID: 2035281791}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &230380236
 GameObject:
@@ -3246,7 +3246,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &996526931
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3260,7 +3260,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.24249911, y: -0.06351161}
+  m_Offset: {x: 0.38724002, y: -0.11979985}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -3271,7 +3271,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.4485749, y: 2.1529768}
+  m_Size: {x: 0.9661048, y: 2.0404003}
   m_EdgeRadius: 0
 --- !u!114 &996526932
 MonoBehaviour:
@@ -3286,7 +3286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  jumpforce: 10
+  jumpforce: 20
   Ground: 1
   Checkground: {fileID: 538046845}
   radiuscheck: 0.1
@@ -6320,6 +6320,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3305432929425779408, guid: cb4579d33a14b55418d0c1306e3c7d2b,
         type: 3}
+    - target: {fileID: 3077157723832533090, guid: 1b8f2534998c28c4091fa590b547b317,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3077157723832533091, guid: 1b8f2534998c28c4091fa590b547b317,
         type: 3}
       propertyPath: m_Name
@@ -6334,6 +6339,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3077157723832533116, guid: 1b8f2534998c28c4091fa590b547b317,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3077157723832533117, guid: 1b8f2534998c28c4091fa590b547b317,
         type: 3}
@@ -6373,7 +6383,7 @@ PrefabInstance:
     - target: {fileID: 3077157723832533117, guid: 1b8f2534998c28c4091fa590b547b317,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3077157723832533117, guid: 1b8f2534998c28c4091fa590b547b317,
         type: 3}

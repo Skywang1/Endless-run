@@ -30,7 +30,7 @@ public class CharacterController : MonoBehaviour
         Ground = Physics2D.OverlapCircle(Checkground.position, radiuscheck, TheGround);
 
         moveinput = Input.GetAxis("Horizontal");
-        Debug.Log(moveinput);
+        //Debug.Log(moveinput);
         rb.velocity = new Vector2(moveinput * speed, rb.velocity.y);
 
 

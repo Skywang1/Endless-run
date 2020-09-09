@@ -15,4 +15,13 @@ public class Box : Interactables
     {
         MoveUpdate();
     }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            SceneManager.instance.ReduceHealth();
+            Destroy(gameObject);
+        }
+    }
 }
